@@ -26,5 +26,6 @@ Route::controller(CartController::class)
         Route::get('/', 'index');       // View cart
         Route::post('/', 'store');      // Add/update product in cart
         Route::delete('/', 'destroy');  // Delete the cart
+        Route::post('/checkout', 'checkout'); // Checkout the cart
     }
 );

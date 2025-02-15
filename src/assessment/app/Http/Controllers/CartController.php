@@ -104,4 +104,14 @@ class CartController extends Controller
         $userId = Auth::id();
         return response()->json($this->cartService->clearCart($userId));
     }
+
+    public function checkout(): JsonResponse
+    {
+        $userId = Auth::id();
+        $order = $this->cartService->checkout($userId);
+        if($order['status']){
+            return response()->json($order, 200);
+        }
+        return response()->json($order, 422);
+    }
 }
