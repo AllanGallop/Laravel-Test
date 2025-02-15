@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -14,5 +16,27 @@ Route::controller(ProductController::class)
     ->group(function(){
         Route::get('/', 'list');
         Route::get('/{id}', 'get');
+    }
+);
+
+// Cart
+Route::controller(CartController::class)
+    ->prefix('/cart')
+    ->middleware('auth:sanctum')
+    ->group(function(){
+        Route::get('/', 'index');       // View cart
+        Route::post('/', 'store');      // Add/update product in cart
+        Route::delete('/', 'destroy');  // Delete the cart
+        Route::post('/checkout', 'checkout'); // Checkout the cart
+    }
+);
+
+// Orders
+Route::controller( OrderController::class)
+    ->prefix('/orders')
+    ->middleware('auth:sanctum')
+    ->group(function(){
+        Route::get('/', 'index');       // View Orders
+        Route::get('/{id}', 'show');    // View order by by
     }
 );
