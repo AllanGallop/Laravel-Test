@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use App\Models\Product;
 use App\Services\CartService;
 use Illuminate\Foundation\Testing\RefreshDatabase;

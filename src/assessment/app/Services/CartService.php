@@ -2,8 +2,6 @@
 namespace App\Services;
 
 use App\Models\Cart;
-use App\Models\Product;
-use Illuminate\Support\Facades\Auth;
 
 class CartService
 {
@@ -19,7 +17,7 @@ class CartService
         ];
     }
 
-    public function addProductToCart(int $productId, int $quantity, int $userId)
+    public function addProduct(int $productId, int $quantity, int $userId)
     {
 
         if ($quantity < 0) {
