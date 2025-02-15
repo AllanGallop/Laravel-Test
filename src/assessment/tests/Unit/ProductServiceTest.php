@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class ProductServiceTest extends TestCase
 {

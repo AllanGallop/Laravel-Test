@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Product;
 use App\Services\ProductService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ProductServiceTest extends TestCase
