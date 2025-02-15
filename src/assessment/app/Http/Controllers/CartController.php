@@ -38,7 +38,7 @@ class CartController extends Controller
         $userId = Auth::id();
         $cartItems = $this->cartService->getCart($userId);
 
-        if($cartItems) {
+        if(empty($cartItems)) {
             return response()->json($cartItems);
         }
 

@@ -23,8 +23,8 @@ Route::controller(CartController::class)
     ->prefix('/cart')
     ->middleware('auth:sanctum')
     ->group(function(){
-        Route::get('/cart', [CartController::class, 'index']);       // View cart
-        Route::post('/cart', [CartController::class, 'store']);      // Add/update product in cart
-        Route::delete('/cart', [CartController::class, 'destroy']);  // Delete the cart
+        Route::get('/', 'index');       // View cart
+        Route::post('/', 'store');      // Add/update product in cart
+        Route::delete('/', 'destroy');  // Delete the cart
     }
 );
