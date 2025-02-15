@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Cart;
 use App\Services\CartService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
