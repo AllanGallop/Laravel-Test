@@ -95,9 +95,14 @@ class OrderController extends Controller
      *     )
      * )
      */
-    public function show(Request $request, $id): JsonResponse
+    public function show(int $id, Request $request): JsonResponse
     {
-        $order = $this->orderService->getOrderById($id, $request->user()->id);
-        return response()->json($order);
+        $order = $this->orderService->getOrderById($request->user()->id, $id);
+        
+        if ($order) {
+            return response()->json($order);
+        }
+
+        return response()->json(['message' => 'Order not found'], 404);
     }
 }
