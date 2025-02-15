@@ -29,12 +29,12 @@ class CheckoutServiceTest extends TestCase
 
         // Create products and add them to the cart
         $product1 = Product::factory()->create([
-            'stock_level' => 10,
+            'stock_quantity' => 10,
             'price' => 100
         ]);
         
         $product2 = Product::factory()->create([
-            'stock_level' => 5,
+            'stock_quantity' => 5,
             'price' => 50
         ]);
 
@@ -95,8 +95,8 @@ class CheckoutServiceTest extends TestCase
         $product1->refresh();
         $product2->refresh();
         
-        $this->assertEquals(8, $product1->stock_level);
-        $this->assertEquals(4, $product2->stock_level);
+        $this->assertEquals(8, $product1->stock_quantity);
+        $this->assertEquals(4, $product2->stock_quantity);
     }
 
 }

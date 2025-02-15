@@ -66,7 +66,7 @@ class CartService
 
     public function checkout(int $userId)
     {
-        return DB::transaction(function ($userId) {
+        return DB::transaction(function () use ($userId) {
             // Retrieve all cart items for the user
             $cartItems = Cart::where('user_id', $userId)->get();
 

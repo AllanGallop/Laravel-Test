@@ -55,7 +55,7 @@ class CheckoutServiceTest extends TestCase
         $this->assertDatabaseHas('orders', ['user_id' => $user->id]);
         $this->assertDatabaseHas('order_items', [
             'product_id' => $product->id,
-            'qty' => 1
+            'quantity' => 1
         ]);
     }
 
