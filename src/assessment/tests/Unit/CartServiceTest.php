@@ -51,7 +51,7 @@ class CartServiceTest extends TestCase
         $product = Product::factory()->create();
 
         // Add products to cart
-        $this->cartService->addProductToCart($product->id, 2, $this->user->id);
+        $this->cartService->addProduct($product->id, 2, $this->user->id);
 
         // Check database for entry
         $this->assertDatabaseHas('carts', [
@@ -61,7 +61,7 @@ class CartServiceTest extends TestCase
         ]);
 
         // Add the same product again
-        $this->cartService->addProductToCart($product->id, 3, $this->user->id);
+        $this->cartService->addProduct($product->id, 3, $this->user->id);
 
         // Check updated quantity
         $this->assertDatabaseHas('carts', [
@@ -86,11 +86,10 @@ class CartServiceTest extends TestCase
         ]);
 
         // Remove from cart
-        $this->cartService->addProductToCart($product->id, 0, $this->user->id);
+        $this->cartService->addProduct($product->id, 0, $this->user->id);
 
         // Assert the product was removed
         $this->assertDatabaseMissing('carts', ['id' => $cartItem->id]);
     }
-
 
 }
