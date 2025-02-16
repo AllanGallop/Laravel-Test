@@ -105,4 +105,9 @@ class OrderController extends Controller
 
         return response()->json(['message' => 'Order not found'], 404);
     }
+
+    public function orders()
+    {
+        
+    }
 }
