@@ -5,10 +5,23 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::post('/login', function (Request $request) {
+    $user = User::where('email', $request->email)->first();
+
+    if ($user && Hash::check($request->password, $user->password)) {
+        return response()->json([
+            'token' => $user->createToken('MyApp')->plainTextToken,
+        ]);
+    }
+
+    return response()->json(['message' => 'Unauthorized'], 401);
+});
 
 // Products
 Route::controller(ProductController::class)

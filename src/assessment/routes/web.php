@@ -19,6 +19,6 @@ Route::middleware([
 });
 
 Route::middleware(AdminMiddleware::class)->group(function () {
-    Route::get('/admin/orders', [OrderController::class, 'orders'])->name('admin.orders.index');
+    Route::view('/admin/orders', 'admin.orders')->name('admin.orders.index');
     Route::view('/admin/products', 'admin.dashboard')->name('admin.products.index');
 });
