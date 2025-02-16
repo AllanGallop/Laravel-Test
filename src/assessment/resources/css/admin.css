@@ -1,0 +1,46 @@
+div.container { max-width: unset !important; }
+div.admin-container {
+    width: 100vw;
+    max-width: 600px;
+    margin: 1em auto;
+    background-color: rgba(0,0,0,0.2);
+
+    h2 { font-size: 1.5em; }
+    h4 { font-size: 1.2em; }
+
+    button {
+        border: 1px solid #555;
+        padding: .25em .5em;
+    }
+
+    table {
+        border-collapse: collapse;
+
+        th, td {
+            border:1px solid #555;
+            padding: .5em;
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    div.admin-container {
+        color: #FFF;
+        background-color: rgba(255,255,255,0.2);
+
+        label {
+            color: #FFF;
+        }
+    
+        input, select, textarea {
+            color: #000;
+        }
+
+        table {
+            th, td {
+                border:1px solid #858585;
+                color: #FFF;
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
+use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', function () {
     return view('welcome');
@@ -17,7 +18,7 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::middleware(['auth', 'admin'])->group(function () {
+Route::middleware(AdminMiddleware::class)->group(function () {
     Route::get('/admin/orders', [OrderController::class, 'orders'])->name('admin.orders.index');
     Route::view('/admin/products', 'admin.dashboard')->name('admin.products.index');
 });

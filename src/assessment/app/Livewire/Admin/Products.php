@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin;
+namespace App\Livewire\Admin;
 
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -10,21 +10,20 @@ class Products extends Component
 {
     use WithPagination;
 
-    public $name, $description, $price, $stock_level, $reorder_stock_level, $product_id;
+    public $name, $price, $stock_quantity, $restock_quantity, $product_id;
     public $isEdit = false;
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'description' => 'nullable|string',
         'price' => 'required|numeric|min:0',
-        'stock_level' => 'required|integer|min:0',
-        'reorder_stock_level' => 'required|integer|min:0',
+        'stock_quantity' => 'required|integer|min:0',
+        'restock_quantity' => 'required|integer|min:0',
     ];
 
     public function render()
     {
         return view('livewire.admin.products', [
-            'products' => Product::latest()->paginate(10),
+            'products' => Product::orderBy('name')->paginate(10),
         ]);
     }
 
@@ -37,7 +36,7 @@ class Products extends Component
     public function store()
     {
         $this->validate();
-        Product::create($this->only(['name', 'description', 'price', 'stock_level', 'reorder_stock_level']));
+        Product::create($this->only(['name', 'price', 'stock_quantity', 'restock_quantity']));
 
         session()->flash('message', 'Product added successfully!');
         $this->reset();
@@ -48,10 +47,9 @@ class Products extends Component
         $product = Product::findOrFail($id);
         $this->product_id = $id;
         $this->name = $product->name;
-        $this->description = $product->description;
         $this->price = $product->price;
-        $this->stock_level = $product->stock_level;
-        $this->reorder_stock_level = $product->reorder_stock_level;
+        $this->stock_quantity = $product->stock_quantity;
+        $this->restock_quantity = $product->restock_quantity;
         $this->isEdit = true;
     }
 
@@ -60,7 +58,7 @@ class Products extends Component
         $this->validate();
 
         Product::findOrFail($this->product_id)->update(
-            $this->only(['name', 'description', 'price', 'stock_level', 'reorder_stock_level'])
+            $this->only(['name', 'price', 'stock_quantity', 'restock_quantity'])
         );
 
         session()->flash('message', 'Product updated successfully!');
