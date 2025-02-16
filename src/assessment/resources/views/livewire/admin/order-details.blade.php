@@ -1,4 +1,4 @@
-<div>
+<div class="admin-container">
     @if($order)
         <h2>Order Details - Order #{{ $order->id }}</h2>
 

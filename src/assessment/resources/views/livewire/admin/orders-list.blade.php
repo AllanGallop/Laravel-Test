@@ -1,4 +1,4 @@
-<div>
+<div class="admin-container">
     <h2>Order List</h2>
 
     <table>

@@ -18,7 +18,10 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::middleware(AdminMiddleware::class)->group(function () {
-    Route::view('/admin/orders', 'admin.orders')->name('admin.orders.index');
-    Route::view('/admin/products', 'admin.dashboard')->name('admin.products.index');
-});
+Route::middleware(AdminMiddleware::class)
+    ->prefix('/admin')
+    ->group(function () {
+        Route::view('/orders', 'admin.orders')->name('admin.orders.index');
+        Route::view('/products', 'admin.products')->name('admin.products.index');
+        Route::view('/lowstock', 'admin.low-stock')->name('admin.lowStock.index');
+    });
