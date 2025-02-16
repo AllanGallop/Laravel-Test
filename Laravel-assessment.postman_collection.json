@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "be97ebc6-fca8-44d6-b485-c05437649a29",
+		"name": "Laravel-assessment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9201768"
+	},
+	"item": [
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "List Cart Items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add/Update Product to Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"product_id\":111,\n    \"quantity\":2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/cart",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Checkout Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/cart/checkout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"cart",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "List Orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/products",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Product",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost/api/products/111",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"products",
+								"111"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "us",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "admin@example.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"let token = pm.collectionVariables.get('token');",
+					"",
+					"if (! token) {",
+					"  const email = pm.collectionVariables.get('email');",
+					"  const password = pm.collectionVariables.get('password');",
+					"  ",
+					"  let loginRequest = {",
+					"    url: loginUrl = pm.collectionVariables.get('url') + '/api/login',",
+					"    method: 'POST',",
+					"    headers: {",
+					"      Accept: 'application/json',",
+					"      'Content-Type': 'multipart/form-data',",
+					"    },",
+					"    body: {",
+					"      'mode': 'formdata',",
+					"      'formdata': [",
+					"        {'key':'email', 'value': email},",
+					"        {'key':'password', 'value': password},",
+					"        {'key': 'device_name', 'value': 'postman'}",
+					"      ]",
+					"    }",
+					"  };",
+					"",
+					"  pm.sendRequest(loginRequest, function(err, res) {",
+					"    const token = res.json().token;",
+					"",
+					"    pm.collectionVariables.set('token', token);",
+					"    pm.request.headers.upsert({",
+					"        key: 'Authorization',",
+					"        value: 'Bearer ' + token,",
+					"    });",
+					"  });",
+					"} else {",
+					"  pm.request.headers.upsert({",
+					"    key: 'Authorization',",
+					"    value: 'Bearer ' + token,",
+					"  });",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "email",
+			"value": "admin@example.com",
+			"type": "string"
+		},
+		{
+			"key": "password",
+			"value": "password",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
