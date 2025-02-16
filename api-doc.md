@@ -61,6 +61,31 @@ Clear the authenticated user's cart
 | --- | --- |
 | sanctum | |
 
+### /checkout
+
+#### POST
+##### Summary:
+
+Checkout a user's cart and place an order
+
+##### Description:
+
+This endpoint allows a user to checkout their cart and create an order.
+
+##### Responses
+
+| Code | Description |
+| ---- | ----------- |
+| 200 | Order successfully created. |
+| 401 | Unauthorized. User must be authenticated. |
+| 422 | Failed to process the checkout. |
+
+##### Security
+
+| Security Schema | Scopes |
+| --- | --- |
+| bearerAuth | |
+
 ### /api/orders
 
 #### GET

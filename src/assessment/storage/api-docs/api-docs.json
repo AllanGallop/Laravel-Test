@@ -139,6 +139,88 @@
                 ]
             }
         },
+        "/checkout": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "Checkout a user's cart and place an order",
+                "description": "This endpoint allows a user to checkout their cart and create an order.",
+                "operationId": "f84798ad40289182e62f10ecfeb66afc",
+                "responses": {
+                    "200": {
+                        "description": "Order successfully created.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "order_id": {
+                                            "type": "integer",
+                                            "example": 123
+                                        },
+                                        "total_price": {
+                                            "type": "number",
+                                            "format": "float",
+                                            "example": 99.99
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Order placed successfully."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Failed to process the checkout.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Failed to process the checkout. Please try again."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized. User must be authenticated.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthorized."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/api/orders": {
             "get": {
                 "tags": [
@@ -512,11 +594,11 @@
                         "format": "float",
                         "example": 99.99
                     },
-                    "stock_level": {
+                    "stock_quantity": {
                         "type": "integer",
                         "example": 10
                     },
-                    "reorder_stock_level": {
+                    "restock_quantity": {
                         "type": "integer",
                         "example": 5
                     },
@@ -525,6 +607,10 @@
                         "format": "date-time"
                     },
                     "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deleted_at": {
                         "type": "string",
                         "format": "date-time"
                     }

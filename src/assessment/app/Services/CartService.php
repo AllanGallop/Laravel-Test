@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Product;
@@ -7,9 +8,23 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class CartService
+ *
+ * Service class to handle cart-related actions such as adding/removing products,
+ * checking out, and clearing the cart.
+ *
+ * @package App\Services
+ */
 class CartService
 {
-    public function getCart(int $userId)
+    /**
+     * Retrieves the cart for a user and calculates the total price of the items in the cart.
+     *
+     * @param int $userId The ID of the user whose cart is being retrieved.
+     * @return array Contains the cart items and the total price of the cart.
+     */
+    public function getCart(int $userId): array
     {
         $cartItems = Cart::where('user_id', $userId)->with('product')->get();
 
@@ -21,9 +36,17 @@ class CartService
         ];
     }
 
-    public function addProduct(int $productId, int $quantity, int $userId)
+    /**
+     * Adds or updates a product in the user's cart.
+     * If quantity is 0, the product is removed from the cart.
+     * 
+     * @param int $productId The ID of the product to be added or updated in the cart.
+     * @param int $quantity The quantity of the product to be added or updated.
+     * @param int $userId The ID of the user whose cart is being modified.
+     * @return array A message indicating the result of the operation.
+     */
+    public function addProduct(int $productId, int $quantity, int $userId): array
     {
-
         if ($quantity < 0) {
             return ['message' => 'Invalid quantity'];
         }
@@ -56,15 +79,27 @@ class CartService
         return ['message' => 'Invalid action'];
     }
 
-    public function clearCart(int $userId)
+    /**
+     * Clears all items from the user's cart.
+     *
+     * @param int $userId The ID of the user whose cart is being cleared.
+     * @return array A message indicating that the cart has been cleared.
+     */
+    public function clearCart(int $userId): array
     {
         Cart::where('user_id', $userId)->delete();
 
         return ['message' => 'Cart cleared'];
     }
 
-
-    public function checkout(int $userId)
+    /**
+     * Checks out the user's cart, creating an order if there are sufficient stock levels.
+     * The user's cart is cleared after a successful checkout.
+     * 
+     * @param int $userId The ID of the user attempting to checkout.
+     * @return array A response indicating the status of the checkout and any relevant data (e.g., order ID).
+     */
+    public function checkout(int $userId): array
     {
         return DB::transaction(function () use ($userId) {
             // Retrieve all cart items for the user

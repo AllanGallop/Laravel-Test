@@ -18,10 +18,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *     @OA\Property(property="name", type="string", example="Product Name"),
  *     @OA\Property(property="description", type="string", example="Product Description"),
  *     @OA\Property(property="price", type="number", format="float", example=99.99),
- *     @OA\Property(property="stock_level", type="integer", example=10),
- *     @OA\Property(property="reorder_stock_level", type="integer", example=5),
+ *     @OA\Property(property="stock_quantity", type="integer", example=10),
+ *     @OA\Property(property="restock_quantity", type="integer", example=5),
  *     @OA\Property(property="created_at", type="string", format="date-time"),
- *     @OA\Property(property="updated_at", type="string", format="date-time")
+ *     @OA\Property(property="updated_at", type="string", format="date-time"),
+ *     @OA\Property(property="deleted_at", type="string", format="date-time")
  * )
  */
 class Product extends Model
